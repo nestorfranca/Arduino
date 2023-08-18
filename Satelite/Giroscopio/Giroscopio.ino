@@ -33,7 +33,7 @@ void setup() {
 void loop() {
   mpu.update();
 
-    if(millis() - timer > 1000){ // print data every second
+    //if(millis() - timer > 1000){ // print data every second
     Serial.print(F("TEMPERATURE: "));Serial.println(mpu.getTemp());
     Serial.print(F("ACCELERO  X: "));Serial.print(mpu.getAccX());
     Serial.print("\tY: ");Serial.print(mpu.getAccY());
@@ -50,8 +50,8 @@ void loop() {
     Serial.print("\tY: ");Serial.print(mpu.getAngleY());
     Serial.print("\tZ: ");Serial.println(mpu.getAngleZ());*/
     Serial.println(F("=====================================================\n"));
-    timer = millis();
-    }
- //delay(1000);
+    //timer = millis();
+    //}
+ delay(1000);
 
 }
