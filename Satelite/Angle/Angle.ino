@@ -33,13 +33,14 @@ Pede para nao mover o MPu6050 durante a execução*/
 void loop() {
   mpu.update();     // Atualiza os dados do MPU6050.
   
-  if((millis()-timer)>1000){ // print data every 10ms
+  //if((millis()-timer)>1000){ // print data every 10ms
   Serial.print("X : ");
   Serial.print(mpu.getAngleX());  // Obtém e imprime o ângulo de inclinação no eixo X.
   Serial.print("\tY : ");
   Serial.print(mpu.getAngleY());  // Obtém e imprime o ângulo de inclinação no eixo Y.
   Serial.print("\tZ : ");
   Serial.println(mpu.getAngleZ());  // Obtém e imprime o ângulo de rotação no eixo Z.
-  timer = millis();   // Reinicia o temporizador para a próxima leitura.
-  }
+  //timer = millis();   // Reinicia o temporizador para a próxima leitura.
+  //}
+ delay(500);
 }
