@@ -39,9 +39,9 @@ void setup()
   gpsSerial.begin(GPSBaud);
 
   Serial.print("Data da Execução: ");
-  if (gps.encode(gpsSerial.read())) // MOSTRARÁ A DATA DA EXECUÇÃO
+  if (gps.encode(gpsSerial.read())){ // MOSTRARÁ A DATA DA EXECUÇÃO
       displayInfo_DATE();
-
+  }
 }
 
 void loop()
