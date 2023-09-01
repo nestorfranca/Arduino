@@ -1,46 +1,49 @@
-#include <Wire.h>
+#include <Wire.h> //I2C Arduino Library
 
-#define address 0x1E //0011110b, I2C 7bit address of HMC5883
+#define addr 0x1E //I2C Address for The HMC5883
 
 void setup(){
-  //Initialize Serial and I2C communications
+  
   Serial.begin(9600);
   Wire.begin();
   
-  //Put the HMC5883 IC into the correct operating mode
-  Wire.beginTransmission(address); //open communication with HMC5883
-  Wire.write(0x02); //select mode register
-  Wire.write(0x00); //continuous measurement mode
+  
+  Wire.beginTransmission(addr); //start talking
+  Wire.write(0x02); // Set the Register
+  Wire.write(0x00); // Tell the HMC5883 to Continuously Measure
   Wire.endTransmission();
 }
 
-void loop() {
- int x,y,z; //triple axis data
 
-  //Tell the HMC5883L where to begin reading data
-  Wire.beginTransmission(address);
-  Wire.write(0x03); //select register 3, X MSB register
+void loop(){
+  
+  int x,y,z; //triple axis data
+
+  //Tell the HMC what regist to begin writing data into
+  Wire.beginTransmission(addr);
+  Wire.write(0x03); //start with register 3.
   Wire.endTransmission();
   
  
- //Read data from each axis, 2 registers per axis
-  Wire.requestFrom(address, 6);
+ //Read the data.. 2 bytes for each axis.. 6 total bytes
+  Wire.requestFrom(addr, 6);
   if(6<=Wire.available()){
-    x = Wire.read()<<8; //X msb
-    x |= Wire.read(); //X lsb
-    z = Wire.read()<<8; //Z msb
-    z |= Wire.read(); //Z lsb
-    y = Wire.read()<<8; //Y msb
-    y |= Wire.read(); //Y lsb
+    x = Wire.read()<<8; //MSB  x 
+    x |= Wire.read(); //LSB  x
+    z = Wire.read()<<8; //MSB  z
+    z |= Wire.read(); //LSB z
+    y = Wire.read()<<8; //MSB y
+    y |= Wire.read(); //LSB y
   }
   
-  //Print out values of each axis
-  Serial.print("x: ");
-  Serial.print(x);
-  Serial.print("  y: ");
-  Serial.print(y);
-  Serial.print("  z: ");
+  // Show Values
+  Serial.print("X Value: ");
+  Serial.println(x);
+  Serial.print("Y Value: ");
+  Serial.println(y);
+  Serial.print("Z Value: ");
   Serial.println(z);
+  Serial.println();
   
-  delay(250);
+  delay(500);
 }
